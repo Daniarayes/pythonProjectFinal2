@@ -25,7 +25,7 @@ class Course:
     def get_course(course_id):
           for course in Course.courses:
 
-              if course.id==course_id:
+              if course_id==course.course_id:
 
                   return  course
 
@@ -73,11 +73,11 @@ class Student:
         for student in Student.students:
             if student_id == student.id:
                 student_name = input("Enter new student name")
-                student_level = input("enter new student level:")
+                student_level = Student.levels()
                 student.stu_name = student_name
                 student.stu_level = student_level
                 print("student Updates Successfully!!")
-                return
+                return None
         print("Student not exist")
 
 ############################################################################################
@@ -88,7 +88,7 @@ class Student:
             print(f"Student name {student.stu_name}")
             print(f"student level:{student.stu_level}")
 
-            print(f"student course {student.stu_course}")
+            print(f"student course {Course.courses[student.id]}")
         print("-------------------------------------------------")
 
 
@@ -112,8 +112,8 @@ class Student:
         if self.stu_level==course.course_level:
             for i in self.stu_course:
                 if i.course_id ==course.course_id:
-                    print("Course already exist before !")
-                    return
+                    print("Course already exist  !!!")
+                    return None
 
             self.stu_course.append(course)
             print("Course added successfully!!")
@@ -122,28 +122,23 @@ class Student:
 
     @staticmethod
     def add_course_to_student(student_id):
-         for student in Student.students:
-             if student_id == student.id:
+        for student in Student.students:
+            if student_id == student.id:
                  course_id=input("Enter Course Id")
                  course =Course.get_course(course_id)
 
                  if course:
 
-                     Student.add_new_course(course)
-                     return
+                     student.add_new_course(course)
+                     return None
 
-         print("student not exist!!")
-#####################################################################################
-
-
-
-
+        print("student not exist!!")
 
 #############################################################################
 while True:
     print("Select Choice please :\n 1.Add new student \n 2.Remove Student \n 3.Edit student \n 4.Display All students \n 5.Create New course \n 6. Add course to student \n 7.Exit  ")
-
-    choice =int(input("\nEnter a choice :"))
+    print("-------------------------------------------------------------------------------------------------")
+    choice =int(input("Enter a choice :"))
 
 ##########################################################################3333
     if choice ==1:
@@ -164,18 +159,6 @@ while True:
         Student.add_course_to_student(student_id)
     else:
         exit()
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
